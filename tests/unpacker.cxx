@@ -22,7 +22,7 @@ int main(int, char **) {
     }
     {
         std::tuple<int, bool, float> t = {0, true, 33.33};
-        std::cerr << snippets::call<bool>(
+        snippets::call<bool>(
             [](int v1, bool v2, float v3) -> bool {
                 std::cout << v1 << ", " << v2 << ", " << v3 << std::endl;
                 return false;
