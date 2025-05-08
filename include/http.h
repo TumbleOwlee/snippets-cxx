@@ -7,7 +7,6 @@
 #include <string_view>
 #include <vector>
 
-#define BIND_FN(F) std::bind(&F, this, std::placeholders::_1)
 #define ENDPOINT(PATH, FUNCTION) { PATH, std::bind(&FUNCTION, this, std::placeholders::_1) }
 
 namespace http {
