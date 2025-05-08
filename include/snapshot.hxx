@@ -21,7 +21,8 @@ public:
      * \param args The arguments to initialize the value
      */
     template <typename... ARGS>
-    snapshot(ARGS... args) : _value(args...), _snapshot(args...) {}
+    snapshot(ARGS... args) : _value(args...), _snapshot(args...) {
+    }
 
     /*!
      * \brief Get the current value
@@ -31,7 +32,9 @@ public:
      *
      * \return A reference to the current value
      */
-    auto operator->() -> T & { return _value; }
+    auto operator->() -> T & {
+        return _value;
+    }
 
     /*!
      * \brief Save the current value as a snapshot
@@ -39,14 +42,18 @@ public:
      * This function saves the current value of the object as a snapshot.
      * The snapshot can be retrieved later using the get() function.
      */
-    auto save() -> void { _snapshot = _value; }
+    auto save() -> void {
+        _snapshot = _value;
+    }
 
     /*!
      * \brief Get the last snapshot of the value
      *
      * \return The last snapshot of the value as const reference
      */
-    auto get() -> T const & { return _snapshot; }
+    auto get() -> T const & {
+        return _snapshot;
+    }
 
 private:
     // The mutable value

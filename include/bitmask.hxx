@@ -49,7 +49,8 @@ public:
     /**
      * Constructor (initializes all bits to 0)
      */
-    bitmask() : value(0) {}
+    bitmask() : value(0) {
+    }
 
     /**
      * Destructor
@@ -190,14 +191,18 @@ private:
      *
      * \param bit Bit to set
      */
-    auto _set(size_t bit) -> void { value |= masks[bit]; }
+    auto _set(size_t bit) -> void {
+        value |= masks[bit];
+    }
 
     /**
      * Unset bit
      *
      * \param bit Bit to unset
      */
-    auto _unset(size_t bit) -> void { value &= ~masks[bit]; }
+    auto _unset(size_t bit) -> void {
+        value &= ~masks[bit];
+    }
 
     /**
      * Check if bit is set
@@ -205,7 +210,9 @@ private:
      * \param bit Bit to check
      * \return True if bit is set, false otherwise
      */
-    auto _is_set(size_t bit) const -> bool { return 0 != (value & masks[bit]); }
+    auto _is_set(size_t bit) const -> bool {
+        return 0 != (value & masks[bit]);
+    }
 };
 
 } // namespace snippets
