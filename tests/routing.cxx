@@ -8,9 +8,9 @@ class UserController : public Controller {
 public:
     auto endpoints() -> Endpoints override {
         return {
-            {"/user/add",    BIND_FN(UserController::add)   },
-            {"/user/remove", BIND_FN(UserController::remove)},
-            {"/user/update", BIND_FN(UserController::update)}
+            ENDPOINT("/user/add", UserController::add),
+            ENDPOINT("/user/remove", UserController::remove),
+            ENDPOINT("/user/update", UserController::update)
         };
     }
 
@@ -31,9 +31,9 @@ class EvseController : public Controller {
 public:
     auto endpoints() -> Endpoints override {
         return {
-            {"/evse/add",    BIND_FN(EvseController::add)   },
-            {"/evse/remove", BIND_FN(EvseController::remove)},
-            {"/evse/update", BIND_FN(EvseController::update)}
+            ENDPOINT("/evse/add", EvseController::add),
+            ENDPOINT("/evse/remove", EvseController::remove),
+            ENDPOINT("/evse/update", EvseController::update)
         };
     }
 
@@ -54,9 +54,9 @@ class StorageController : public Controller {
 public:
     auto endpoints() -> Endpoints override {
         return {
-            {"/storage/add",    BIND_FN(StorageController::add)   },
-            {"/storage/remove", BIND_FN(StorageController::remove)},
-            {"/storage/update", BIND_FN(StorageController::update)}
+            ENDPOINT("/storage/add", StorageController::add),
+            ENDPOINT("/storage/remove", StorageController::remove),
+            ENDPOINT("/storage/update", StorageController::update)
         };
     }
 

@@ -8,6 +8,7 @@
 #include <vector>
 
 #define BIND_FN(F) std::bind(&F, this, std::placeholders::_1)
+#define ENDPOINT(PATH, FUNCTION) { PATH, std::bind(&FUNCTION, this, std::placeholders::_1) }
 
 namespace http {
 
@@ -38,16 +39,16 @@ public:
     }
 
     template <StatusCode Code>
-    static constexpr auto Err() -> Response {
+    static auto Err() -> Response {
         static_assert(Code != StatusCode::Ok);
         return Response(Code);
     }
 
-    static constexpr auto Err() -> Response {
+    static auto Err() -> Response {
         return Response(StatusCode::BadRequest);
     }
 
-    static constexpr auto Ok() -> Response {
+    static auto Ok() -> Response {
         return Response(StatusCode::Ok);
     }
 
