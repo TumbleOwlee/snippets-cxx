@@ -10,6 +10,10 @@ project(snippets
 # Export compile commands
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
+
 # Set default to Debug
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
     set(CMAKE_BUILD_TYPE Debug)
@@ -17,9 +21,10 @@ endif()
 message("Build type: ${CMAKE_BUILD_TYPE}")
 
 # Create list of all test files
-set (TESTS_FILES 
-    "tests/unpacker.cxx" 
+set (TESTS_FILES
+    "tests/unpacker.cxx"
     "tests/bitmask.cxx"
+    "tests/routing.cxx"
 )
 
 enable_testing()
