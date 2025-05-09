@@ -1,91 +1,47 @@
-#include "http.h"
-
 #include <iostream>
+
+#include "http/controller.h"
+#include "http/response.h"
+#include "http/request.h"
+#include "http/router.h"
+#include "http/status_code.h"
 
 using namespace http;
 
-class UserController : public Controller {
+class user_controller : public controller {
 public:
-    auto endpoints() -> Endpoints override {
+    auto endpoints() -> class endpoints override {
         return {
-            ENDPOINT("/user/add", UserController::add),
-            ENDPOINT("/user/remove", UserController::remove),
-            ENDPOINT("/user/update", UserController::update)
+            ENDPOINT("/user/add", user_controller::add),
+            ENDPOINT("/user/remove", user_controller::remove),
+            ENDPOINT("/user/update", user_controller::update)
         };
     }
 
-    auto add(Request const &request) -> Response {
-        return Response::Ok();
+    auto add(request const &request) -> response {
+        return response::ok();
     }
 
-    auto remove(Request const &request) -> Response {
-        return Response::Err();
+    auto remove(request const &request) -> response {
+        return response::error();
     }
 
-    auto update(Request const &request) -> Response {
-        return Response::Err<StatusCode::NotFound>();
-    }
-};
-
-class EvseController : public Controller {
-public:
-    auto endpoints() -> Endpoints override {
-        return {
-            ENDPOINT("/evse/add", EvseController::add),
-            ENDPOINT("/evse/remove", EvseController::remove),
-            ENDPOINT("/evse/update", EvseController::update)
-        };
-    }
-
-    auto add(Request const &request) -> Response {
-        return Response::Ok();
-    }
-
-    auto remove(Request const &request) -> Response {
-        return Response::Err();
-    }
-
-    auto update(Request const &request) -> Response {
-        return Response::Err<StatusCode::NotFound>();
-    }
-};
-
-class StorageController : public Controller {
-public:
-    auto endpoints() -> Endpoints override {
-        return {
-            ENDPOINT("/storage/add", StorageController::add),
-            ENDPOINT("/storage/remove", StorageController::remove),
-            ENDPOINT("/storage/update", StorageController::update)
-        };
-    }
-
-    auto add(Request const &request) -> Response {
-        return Response::Ok();
-    }
-
-    auto remove(Request const &request) -> Response {
-        return Response::Err();
-    }
-
-    auto update(Request const &request) -> Response {
-        return Response::Err<StatusCode::NotFound>();
+    auto update(request const &request) -> response {
+        return response::error<status_code::not_found>();
     }
 };
 
 int main(int argc, char **argv) {
-    Router router;
-    router.attach<UserController>();
-    router.attach<EvseController>();
-    router.attach<StorageController>();
+    router router;
+    router.attach<user_controller>();
 
-    Request addUser("/user/add");
+    request addUser("/user/add");
     std::cerr << static_cast<int>(router.handle(addUser).code()) << std::endl;
 
-    Request removeUser("/user/remove");
+    request removeUser("/user/remove");
     std::cerr << static_cast<int>(router.handle(removeUser).code()) << std::endl;
 
-    Request updateUser("/user/update");
+    request updateUser("/user/update");
     std::cerr << static_cast<int>(router.handle(updateUser).code()) << std::endl;
 
     return 0;
