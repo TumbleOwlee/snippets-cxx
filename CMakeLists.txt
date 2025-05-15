@@ -20,6 +20,17 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 endif()
 message("Build type: ${CMAKE_BUILD_TYPE}")
 
+# Optionally switch to faster linker
+find_program(MOLD mold)
+if (MOLD)
+    if (CMAKE_MAJOR_VERSION GREATER 2 OR (CMAKE_MAJOR_VERSION GREATER 1 AND CMAKE_MINOR_VERSION GREATER 28))
+        set(CMAKE_LINKER_TYPE MOLD)
+    else()
+        set(CMAKE_CXX_FLAGS "-fuse-ld=mold")
+    endif()
+endif()
+
+
 # Create list of all test files
 set (TESTS_FILES
     "tests/unpacker.cxx"
